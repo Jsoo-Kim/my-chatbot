@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile  # FastAPI의 Dockerfile 경로
+    container_name: fastapi_app
+    ports:
+      - "8001:8001"  # FastAPI 외부 접속 포트
+    networks:
+      - my_custom_network
+    depends_on:
+      - sglang
+      - mongodb
+
+  sglang:
+    image: lmsysorg/sglang:latest
+    container_name: sglang_server
+    command: python3 -m sglang.launch_server --model-path /models/Qwen2.5-32B-Instruct-AWQ --host 0.0.0.0 --port 30000
+    volumes:
+      - /home/jskim/data_js/models:/models
+    ports:
+      - "30000:30000"
+    networks:
+      - my_custom_network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+      - /home/jskim/data_js/db:/db
+    ports:
+      - "27017:27017"
+    networks:
+      - my_custom_network
+
+networks:
+  my_custom_network:
+    driver: bridge

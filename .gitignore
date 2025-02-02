@@ -1,0 +1,4 @@
+__pycache__/
+*.log
+*.csv
+sapie/models/local_models/*

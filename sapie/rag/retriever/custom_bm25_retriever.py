@@ -1,7 +1,5 @@
 from __future__ import annotations
-
 from typing import Any, Callable, Dict, Iterable, List, Optional
-
 from langchain_core.callbacks import CallbackManagerForRetrieverRun
 from langchain_core.documents import Document
 from pydantic import Field  
@@ -143,11 +141,9 @@ class BM25Retriever(BaseRetriever):
         
         
         try:
-            save_path = './data/csv/sapie_bm25_results.csv'
+            save_path = './sapie/data/csv_results/sapie_bm25_results.csv'
             result_bm25.to_csv(save_path, index=False, encoding='utf-8')  # 한글 깨짐 방지        
         except Exception as e:
             print(f"{save_path}파일 저장 중 오류가 발생했습니다: {str(e)}")
 
         return result_bm25
-    
-    

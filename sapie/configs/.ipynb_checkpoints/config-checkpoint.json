@@ -1,0 +1,38 @@
+{
+    "embedding": {        
+        "type": "huggingface",  
+        "huggingface": {
+            "model_name": "dragonkue/BGE-m3-ko",
+            "device": "cuda"
+        },
+        "bedrock": {
+            "model_id": "amazon.titan-embed-text-v1",
+            "region": "us-west-2"
+        },
+        "openai": {
+            "api_url": "http://172.19.0.4:5407/v1",
+            "api_key": "SaltwareSapie",
+            "model_name": "bge-m3",
+            "local_path": "/home/jskim/data_js/test_241226/sapie/models/local_models/bge-m3-ko"
+        }       
+    },
+    "inference": {
+        "type": "sglang",
+        "sglang": {
+            "base_url": "http://172.19.0.3:30000/v1",
+            "api_key": "EMPTY",
+            "default_model": "/models/Qwen2.5-14B-Instruct-AWQ",
+            "streaming": true,
+            "temperature": 0.7,
+            "max_tokens": 10000
+        },
+        "vllm": {
+            "base_url": "http://172.19.0.3:8000/v1",
+            "api_key": "EMPTY",
+            "default_model": "/models/Qwen2.5-14B-Instruct-AWQ",
+            "streaming": true,
+            "temperature": 0.7,
+            "max_tokens": 10000
+        }
+    }
+}
